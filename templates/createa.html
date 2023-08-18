@@ -1,0 +1,92 @@
+{% extends 'home.html'%}
+{% load static %}
+{% block content %}
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- left column -->
+            <div class="col-md-4" style="padding-bottom: 20px">
+                <h1>Create Aula</h1>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-2">
+                        <label for="coda" class="form-label">CODA</label>
+                        <input type="text" class="form-control" id="coda" name="coda" required>
+                    </div>
+                    <div class="mb-2">
+                        <label for="subject_id" class="form-label">Subject</label>
+                        <select class="form-select" id="subject_id" name="subject_id" required>
+                            {% for materia in materias %}
+                                <option value="{{ materia.id }}">{{ materia.Materia }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-2">
+                        <label for="cupos" class="form-label">Cupos</label>
+                        <input type="text" class="form-control" id="cupos" name="cupos" required>
+                    </div>
+                    <div class="mb-2">
+                        <label for="ocupdia" class="form-label">Ocupdia</label>
+                        <input type="text" class="form-control" id="ocupdia" name="ocupdia" required>
+                    </div>
+                    <div class="mb-2">
+                        <label for="start" class="form-label">Start</label>
+                        <input type="text" class="form-control" id="start" name="start" required>
+                    </div>
+                    <div class="mb-2">
+                        <label for="end" class="form-label">End</label>
+                        <input type="text" class="form-control" id="end" name="end" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Create Aula</button>
+                </form>
+            </div>
+            <div class="col-md-8">
+                <div class="table-responsive py-2">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Cod Aula</th>
+                                <th>Subject</th>
+                                <th>Cupos </th>
+                                <th>Día</th>
+                                <th>Inicio</th>
+                                <th>Fin</th>
+                                <th colspan="2">Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in aulas %}
+                                <tr>
+                                    <td>{{item.CODA}}</td>
+                                    <td>{{item.Subject_id.Materia}}</td>
+                                    <td>{{ item.cupoA }}</td>
+                                    <td>{{item.ocupdia}}</td>
+                                    <td>{{item.start}}</td>
+                                    <td>{{item.end}}</td>
+                                    <td><a href="edicionAula/{{item.CODA}}" class="btn btn-info">Editar</a></td>
+                                    <td><a href="eliminarAula/{{item.CODA}}{{item.ocupdia}}{{item.Subject_id.Materia}}" class="btn btn-danger btnEliminacion">Eliminar</a></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+        </div>
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  <script>
+    $(document).ready(function() {
+        console.log({{ items|safe }});
+        $('#itemsTable').DataTable();
+    });
+</script>
+
+    <script src="{% static 'lib/AdminLTE-3.0.2/plugins/jquery/jquery.min.js' %}" ></script>
+<script src="{% static 'lib/datatables-1.10.20/js/jquery.dataTables.min.js'%}" ></script>
+<script src="{% static 'lib/datatables-1.10.20/js/dataTables.bootstrap.min.js' %}" ></script>
+
+
+  {% endblock %}

@@ -1,0 +1,89 @@
+{% extends 'home.html'%}
+{% load static %}
+{% block content %}
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- left column -->
+        <div class="col-md-5">
+          <!-- general form elements -->
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">materia</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form method="post" action=".">
+              <div class="card-body">
+                  {% csrf_token %}
+                  {{ form.as_ul }}
+              </div>
+              <!-- /.card-body -->
+
+              <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+          </div>
+          <!-- /.card -->
+        </div>
+        <div class="col-sm-7 col-md-7 col-lg-7 col-xl-7">
+            <div class="table-responsive py-2">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Código</th>
+                            <th>Materia</th>
+                            <th>Carrera</th>
+                            <th>Semestre</th>
+                            <th>Cupos</th>
+                            <th>Docente</th>
+                            <th colspan="2">Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for c in object_list %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{c.COD}}</td>
+                            <td>{{c.Materia}}</td>
+                            <td>{{c.M_Escuela.NCarrera}}</td>
+                            <td>{{c.semestre}}</td>
+                            <td>{{c.Cupos}}</td>
+                            <td>{{c.CODDO.Names}}</td>
+                            <td><a href="edicionMateria/{{c.COD}}" class="btn btn-info">Editar</a></td>
+                            <td><a href="eliminarMateria/{{c.COD}}" class="btn btn-danger btnEliminacion">Eliminar</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+      </div>
+      <!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+    <script>
+        (function () {
+            const btnEliminacion = document.querySelectorAll(".btnEliminacion");
+            btnEliminacion.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const confirmacion = confirm('¿Seguro de eliminar el curso?');
+                    if (!confirmacion) {
+                        e.preventDefault();
+                    }
+                });
+            });
+
+        })();
+    </script>
+<script src="{% static 'lib/AdminLTE-3.0.2/plugins/jquery/jquery.min.js' %}" ></script>
+<script src="{% static 'lib/datatables-1.10.20/js/jquery.dataTables.min.js'%}" ></script>
+<script src="{% static 'lib/datatables-1.10.20/js/dataTables.bootstrap.min.js' %}" ></script>
+
+
+{% endblock %}

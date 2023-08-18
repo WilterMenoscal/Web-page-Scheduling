@@ -1,0 +1,42 @@
+{% extends "home.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <h2>Edición de Materia</h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="/home/createsubject/editarMateria/" method="POST">{% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" id="txtCodigo" name="txtCodigo" value="{{materia.COD}}" class="form-control" placeholder="Código"
+                            minlength="6" maxlength="6" readonly required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtNombre" name="txtNombre" value="{{materia.Names}}" class="form-control" placeholder="Nombre de la materia"
+                            maxlength="50" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="carrera" name="carrera" value="{{materia.Materia.NSchool}}" class="form-control" placeholder="Carrera"
+                            maxlength="50"  readonly required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="semestre" name="semestre" value="{{materia.semestre}}" class="form-control" placeholder="semestre"
+                            maxlength="50" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="cupo" name="cupo" value="{{materia.Cupos}}" class="form-control" placeholder="cupos"
+                            maxlength="50" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="coddo" name="coddo" value="{{materia.CODDO.Names}}" class="form-control" placeholder="Docente"
+                            maxlength="50"  readonly required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

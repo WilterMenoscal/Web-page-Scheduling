@@ -1,0 +1,70 @@
+{% extends 'home.html'%}
+{% block content %}
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <div class="container">
+      <div class="row md-6">
+          <div class="col-md-8">
+              <div class="container">
+                  <div class="row mb-3 mt-5">
+                      <div class="col-12 text-center">
+                          <h2 class="section-title mb-3">DÉJANOS TUS COMENTARIOS</h2>
+                      </div>
+                  </div>
+                  <div class="row justify-content-evenly">
+                      <div class="col">
+                          <form action="" method="">
+                              <div class="form-group row mt-3">
+                                  <div class="col-6 mb-3">
+                                      <label for="nombres">Nombres</label>
+                                      <input type="text" class="form-control" placeholder="Nombres" name="nombres" id="nombre"
+                                          required>
+                                  </div>
+                                  <div class="col-6 mb-3">
+                                      <label for="apellidos">Apellidos</label>
+                                      <input type="text" class="form-control" placeholder="Apellidos" name="apellidos"
+                                          id="apellido" required>
+                                  </div>
+                              </div>
+                              <div class="form-group row">
+                                  <div class="col-6 mb-3">
+                                      <label for="fono">Teléfono</label>
+                                      <input type="tel" class="form-control" placeholder="Teléfono" name="fono" id="fono"
+                                          required>
+                                  </div>
+                                  <div class="col-6 mb-3">
+                                      <label for="email">Email</label>
+                                      <input type="email" class="form-control" placeholder="Email" name="email" id="email"
+                                          required>
+                                  </div>    
+                              </div>
+                              <div class="form-group row">
+                                  <div class="col-12 mb-3">
+                                      <label for="text">Mensaje</label>
+                                      <textarea name="text" id="text" class="form-control md-textarea"></textarea>
+                                  </div>
+                              </div>
+                                   <input type="submit" value="Enviar" class=" sidebar-dark-primary dark btn btn-success btn-lg mb-3" style="color:aliceblue;border-color: aliceblue;">
+                          </form>
+                      </div>
+                  </div>            
+              </div>
+          </div>
+          <div class="col-md-3">
+              <div class="container">
+                  <div class="row mb-3 mt-5">
+                      <div class="col-12">
+                          <h3 class="mt-3" style="font-size:medium; font-weight: bold;">Teléfono</h3>
+                          <h4 style="font-size:small">  0929229339</h4>     
+                          <h4 style="font-size:small">  0929229339</h4>    
+                          <h3 class="mt-3" style="font-size:medium; font-weight: bold;">Dirección</h3>
+                          <h4 style="font-size:small">  direccion1</h4>     
+                          <h4 style="font-size:small"> direccion2</h4>
+                       </div>
+                  </div>        
+              </div>
+          </div>
+      </div>
+  </div>
+  </div>
+{% endblock %}

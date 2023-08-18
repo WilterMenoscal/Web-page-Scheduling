@@ -1,0 +1,117 @@
+{% extends 'home.html' %}
+{% load static %}
+{% block content %}
+
+<section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- /.col -->
+            <div class="container mt-12">
+                <h1 class="text-center">Horarios</h1>
+
+                <div class="mb-3">
+                    <h3>Filtro por Aulas</h3>
+                    {% for aula in aulas %}
+                        <a class="btn btn-secondary" href="{% url 'calendar' %}?aula={{ aula }}">{{ aula }}</a>
+                    {% endfor %}
+                </div>
+
+                <div class="mb-3">
+                    <h3>Filtro por materias</h3>
+                    {% for materia in materias %}
+                        <a class="btn btn-dark" href="{% url 'calendar' %}?materia={{ materia }}">{{ materia }}</a>
+                    {% endfor %}
+                </div>
+
+                <div class="mb-3">
+                    <h3>Docentes</h3>
+                    {% for docente in docentes %}
+                        <a class="btn btn-primary" href="{% url 'calendar' %}?docente={{ docente }}">{{ docente }}</a>
+                    {% endfor %}
+                </div>
+
+
+            <table id="dataGrid" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Hora</th>
+                            <th>Lunes</th>
+                            <th>Martes</th>
+                            <th>Miercoles</th>
+                            <th>Jueves</th>
+                            <th>Viernes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in datagrid_data %}
+                             <tr>
+                                <td>{{ row.hour }}</td>
+                                <td>{{ row.Lunes }}</td>
+                                <td>{{ row.Martes }}</td>
+                                <td>{{ row.Miercoles }}</td>
+                                <td>{{ row.Jueves }}</td>
+                                <td>{{ row.Viernes }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% if filtro_docente %}
+                <h3>Clases de {{ filtro_docente }}</h3>
+                <ul>
+                    {% for class_info in docente_classes %}
+                        <li>{{ class_info }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            </div>
+
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <script>
+        var table;
+
+        $(document).ready(function() {
+            table = $('#dataGrid').DataTable();
+        });
+        function filtrar() {
+            var filtro_aula = $('#aula_combobox').val();
+            var filtro_materia = $('#materia_combobox').val(); // Corregido: Cambiar '#aula_combobox' por '#materia_combobox'
+            var filtro_docente = $('#docente_combobox').val(); // Corregido: Cambiar '#aula_combobox' por '#materia_combobox'
+
+            table.clear().draw();
+
+            var filteredData = [];
+
+            {% for entry in datagrid_data %}
+                var aula = "{{ entry.aula }}";
+                var materia = "{{ entry.materia }}";
+                var docente = "{{ entry.docente }}";
+
+                if (filtro_aula === '' || aula === filtro_aula) {
+                    if (filtro_materia === '' || materia === filtro_materia) {
+                        if (filtro_docente === '' || docente === filtro_docente) {
+                            filteredData.push({
+                                'hour': "{{ entry.hour }}",
+                                'Lunes': "{{ entry.Lunes }}",
+                                'Martes': "{{ entry.Martes }}",
+                                'Miércoles': "{{ entry.Miércoles }}",
+                                'Jueves': "{{ entry.Jueves }}",
+                                'Viernes': "{{ entry.Viernes }}"
+                            });
+                        }
+                    }
+                }
+            {% endfor %}
+
+            table.rows.add(filteredData).draw();
+        }
+    </script>
+
+<script src="{% static 'lib/AdminLTE-3.0.2/plugins/jquery/jquery.min.js' %}" ></script>
+<script src="{% static 'lib/datatables-1.10.20/js/jquery.dataTables.min.js'%}" ></script>
+<script src="{% static 'lib/datatables-1.10.20/js/dataTables.bootstrap.min.js' %}" ></script>
+
+{% endblock %}

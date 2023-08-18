@@ -1,0 +1,44 @@
+{% extends "home.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <h2>Edición de Materia</h2>
+        <div class="card">
+            <div class="card-body">
+                    <form action="/home/createaula/editarAula/" method="POST">{% csrf_token %}
+                       <div class="mb-2">
+                            <label for="coda" class="form-label">CODA</label>
+                            <input type="text" class="form-control" id="coda" name="coda" required>
+                        </div>
+                        <div class="mb-2">
+                            <label for="subject_id" class="form-label">Subject</label>
+                            <select class="form-select" id="subject_id" name="subject_id" required>
+                                {% for materia in materias %}
+                                    <option value="{{ materia.id }}">{{ materia.Materia }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-2">
+                            <label for="cupos" class="form-label">Cupos</label>
+                            <input type="text" class="form-control" id="cupos" name="cupos" required>
+                        </div>
+                        <div class="mb-2">
+                            <label for="ocupdia" class="form-label">Ocupdia</label>
+                            <input type="text" class="form-control" id="ocupdia" name="ocupdia" required>
+                        </div>
+                        <div class="mb-2">
+                            <label for="start" class="form-label">Start</label>
+                            <input type="text" class="form-control" id="start" name="start" required>
+                        </div>
+                        <div class="mb-2">
+                            <label for="end" class="form-label">End</label>
+                            <input type="text" class="form-control" id="end" name="end" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Create Aula</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
